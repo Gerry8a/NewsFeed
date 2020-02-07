@@ -14,13 +14,13 @@
         <ImageView
             android:id="@+id/imgNoticia"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="180dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"></ImageView>
+            app:layout_constraintVertical_bias="1.0"></ImageView>
 
         <TextView
             android:id="@+id/tvNoticiaFuente"
@@ -29,12 +29,14 @@
             android:layout_marginTop="62dp"
             android:layout_marginBottom="39dp"
             android:text="Noticia Fuente"
+            android:visibility="invisible"
+            android:textSize="12sp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imgNoticia"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvNoticiaTitulo"
@@ -43,24 +45,24 @@
             android:layout_marginTop="28dp"
             android:layout_marginBottom="16dp"
             android:text="Fecha publicación"
-            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/imgNoticia"
             app:layout_constraintBottom_toTopOf="@id/tvNoticiaFuente"
             app:layout_constraintStart_toStartOf="@id/imgNoticia"
-            app:layout_constraintTop_toBottomOf="@+id/imgNoticia" />
+            app:layout_constraintTop_toBottomOf="@+id/imgNoticia"
+            app:layout_constraintVertical_bias="0.524" />
 
         <TextView
             android:id="@+id/tvFechaPublicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp"
             android:text="fechaPublicaciojn"
-            app:layout_constraintBottom_toTopOf="@+id/tvNoticiaTitulo"
-            app:layout_constraintEnd_toEndOf="@+id/imgNoticia"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toEndOf="@+id/tvNoticiaFuente"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNoticiaTitulo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

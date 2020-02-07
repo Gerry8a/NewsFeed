@@ -8,22 +8,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gerardochoa.newsfeed.R;
 import com.gerardochoa.newsfeed.models.Noticia;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class AdaptadorNoticia extends RecyclerView.Adapter<AdaptadorNoticia.NoticiasViewHolder> {
 
-    private ArrayList<Noticia> mEstacionLista;
+    private ArrayList<Noticia> noticiasLista;
     private Context context;
+
+    public AdaptadorNoticia(ArrayList<Noticia> noticiasLista, Context context) {
+        this.noticiasLista = noticiasLista;
+        this.context = context;
+    }
+
 
     public static class NoticiasViewHolder extends RecyclerView.ViewHolder{
 
        // public ImageView mImageView;
-        public TextView tvTitulo, tvFecha, tvFuente;
+        private TextView tvTitulo, tvFecha, tvFuente;
+        private ImageView imgImagen;
 
         /**
          * Método que inicializa los atributos de la cardView
@@ -34,13 +43,12 @@ public class AdaptadorNoticia extends RecyclerView.Adapter<AdaptadorNoticia.Noti
             tvFecha = itemView.findViewById(R.id.tvFechaPublicacion);
             tvFuente = itemView.findViewById(R.id.tvNoticiaFuente);
             tvTitulo = itemView.findViewById(R.id.tvNoticiaTitulo);
-
-
+            imgImagen = itemView.findViewById(R.id.imgNoticia);
         }
     }
 
     public AdaptadorNoticia(ArrayList<Noticia> estacionLista) {
-        mEstacionLista = estacionLista;
+        noticiasLista = estacionLista;
     }
 
     @NonNull
@@ -54,15 +62,17 @@ public class AdaptadorNoticia extends RecyclerView.Adapter<AdaptadorNoticia.Noti
 
     @Override
     public void onBindViewHolder(@NonNull NoticiasViewHolder holder, int position) {
-        Noticia currenItem = mEstacionLista.get(position);
+        Noticia currenItem = noticiasLista.get(position);
         holder.tvFuente.setText(currenItem.getFuente());
         holder.tvFecha.setText(currenItem.getFechaPublicacion());
         holder.tvTitulo.setText(currenItem.getTitulo());
+        String imageUrl = currenItem.getImgNoticia();
+        Picasso.get().load(imageUrl).fit().into(holder.imgImagen);
     }
 
     @Override
     public int getItemCount() {
-        return mEstacionLista.size();
+        return noticiasLista.size();
     }
     /*
     private ArrayList<Noticia> listaNoticias;

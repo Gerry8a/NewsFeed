@@ -13,9 +13,19 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.gerardochoa.newsfeed.R;
 import com.gerardochoa.newsfeed.adapters.AdaptadorNoticia;
 import com.gerardochoa.newsfeed.models.Noticia;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,13 +35,13 @@ import java.util.ArrayList;
 public class NacionalFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Noticia> listaNoticias;
-    private TextView tvTitulo, tvFuente, tvFecha;
     private AdaptadorNoticia adaptadorNoticia;
-    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Noticia> noticias;
+    private RequestQueue requestQueue;
+
 
     public NacionalFragment() {
-
+        // Required empty public constructor
     }
 
 
@@ -39,31 +49,63 @@ public class NacionalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_nacional, container, false);
-        listaNoticias = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.recyclerViewNacional);
-        tvFecha = view.findViewById(R.id.tvFechaPublicacion);
-        tvTitulo = view.findViewById(R.id.tvTitulo);
-        tvFuente = view.findViewById(R.id.tvNoticiaFuente);
-        listaNoticias.add(new Noticia("La poderos", "Yo merengues", "Hoy"));
+        View view = inflater.inflate(R.layout.fragment_internacional, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerViewInternacional);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        final AdaptadorNoticia adaptadorNoticia = new AdaptadorNoticia(listaNoticias);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adaptadorNoticia);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        noticias = new ArrayList<>();
 
-
-
-
+        requestQueue = Volley.newRequestQueue(getContext());
+        parseJSON();
         return view;
     }
 
-    private void inicializarComponentes(View view) {
+    private void parseJSON() {
+        String url = "https://newsapi.org/v2/top-headlines?country=mx&apiKey=2a5d404a474c4f50a62ac30dcf07a0ed";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("articles");
+                    llenarLista(jsonArray);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 
-    private void llenarLista() {
-        listaNoticias.add(new Noticia("La poderos", "Yo merengues", "Hoy"));
+    private void llenarLista(JSONArray jsonArray) throws JSONException {
+        for(int i = 0; i < jsonArray.length(); i ++){
+            JSONObject noticiaJSON = jsonArray.getJSONObject(i);
+            agregarNoticia(noticiaJSON);
+        }
+        AdaptadorNoticia adaptadorNoticia = new AdaptadorNoticia(noticias, getContext());
+        recyclerView.setAdapter(adaptadorNoticia);
     }
+
+
+
+    private void agregarNoticia(JSONObject noticiaJSON) throws JSONException {
+        String titulo = noticiaJSON.getString("title");
+        String fecha = noticiaJSON.getString("publishedAt");
+        String autor = noticiaJSON.getString("author");
+        String imagen = noticiaJSON.getString("urlToImage");
+
+        Noticia noticia = new Noticia(titulo, autor, fecha, imagen);
+        noticias.add(noticia);
+    }
+
+
 
 }
