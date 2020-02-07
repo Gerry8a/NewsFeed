@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">News Feed</string>
+    <string name="mail">Mail</string>
+    <string name="password">Password</string>
+    <string name="remenber">Remenber</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="logout_and_forget">Logout and forget</string>
+    <string name="invalid_password">Password must contain at least fourt characters</string>
+    <string name="invalid_mail">Invalid mail</string>
+    <string name="location_permission">Location Permission</string>
+    <string name="location_message">You cannot continue if do not accept location permission</string>
+
+
+
+</resources>

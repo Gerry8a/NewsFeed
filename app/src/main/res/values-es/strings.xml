@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">News Feed</string>
+    <string name="mail">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="remenber">Recordar</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="logout_and_forget">Cerrar sesión y olvidar</string>
+    <string name="invalid_password">La contraseña debe contener más de cuatro caracteres</string>
+    <string name="invalid_mail">Correo inválido</string>
+    <string name="location_permission">Permiso de Locación</string>
+    <string name="location_message">No puedes usar la aplicación sin conceder permiso de ubicación</string>
+
+
+
+
+</resources>
