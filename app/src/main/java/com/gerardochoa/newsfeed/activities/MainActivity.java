@@ -1,10 +1,11 @@
-package com.gerardochoa.newsfeed;
+package com.gerardochoa.newsfeed.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,22 +17,48 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gerardochoa.newsfeed.R;
+import com.gerardochoa.newsfeed.fragments.InternacionalFragment;
+import com.gerardochoa.newsfeed.fragments.NacionalFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_LOCATION = 1;
     private SharedPreferences preferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        comprobarPermisoUbicacion();
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottonNavigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NacionalFragment()).commit(); //con qué fragmento iniciar
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment selectedFragment = null;
+                    switch (menuItem.getItemId()){
+                        case R.id.nav_internacional:
+                            selectedFragment = new InternacionalFragment();
+                            break;
+                        case R.id.nav_nacional:
+                            selectedFragment = new NacionalFragment();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,
+                            selectedFragment).commit();
+                    return true;
+                }
+            };
 
     private void comprobarPermisoUbicacion() {
         // Here, thisActivity is the current activity

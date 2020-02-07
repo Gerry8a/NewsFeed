@@ -11,6 +11,8 @@
     <string name="invalid_mail">Correo inválido</string>
     <string name="location_permission">Permiso de Locación</string>
     <string name="location_message">No puedes usar la aplicación sin conceder permiso de ubicación</string>
+    <string name="national">Nacional</string>
+    <string name="international">Internacional</string>
 
 
 

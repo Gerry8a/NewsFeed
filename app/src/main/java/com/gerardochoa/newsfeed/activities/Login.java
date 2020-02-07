@@ -1,8 +1,7 @@
-package com.gerardochoa.newsfeed;
+package com.gerardochoa.newsfeed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +14,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.gerardochoa.newsfeed.R;
+import com.gerardochoa.newsfeed.activities.MainActivity;
 
 public class Login extends AppCompatActivity {
 

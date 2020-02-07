@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_nacional"
+        android:title="@string/national"
+        />
+
+    <item android:id="@+id/nav_internacional"
+        android:title="@string/international"/>
+
+</menu>

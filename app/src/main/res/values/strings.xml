@@ -10,6 +10,8 @@
     <string name="invalid_mail">Invalid mail</string>
     <string name="location_permission">Location Permission</string>
     <string name="location_message">You cannot continue if do not accept location permission</string>
+    <string name="national">National</string>
+    <string name="international">International</string>
 
 
 
