@@ -57,12 +57,16 @@ public class InternacionalFragment extends Fragment {
         noticias = new ArrayList<>();
 
         requestQueue = Volley.newRequestQueue(getContext());
-        parseJSON();
+        String url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=2a5d404a474c4f50a62ac30dcf07a0ed";
+        parseJSON(url);
         return view;
     }
 
-    private void parseJSON() {
-        String url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=2a5d404a474c4f50a62ac30dcf07a0ed";
+    /**
+     * Método para consimir el API
+     */
+    private void parseJSON(String url) {
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
         null, new Response.Listener<JSONObject>() {
                     @Override
@@ -85,6 +89,13 @@ public class InternacionalFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+
+    /**
+     * Método para llenar la lista de objetos de tipo Noticia a partir de un JSONArray con
+     la informacion de todas las noticias.
+     * @param jsonArray
+     * @throws JSONException
+     */
     private void llenarLista(JSONArray jsonArray) throws JSONException {
         for(int i = 0; i < jsonArray.length(); i ++){
             JSONObject noticiaJSON = jsonArray.getJSONObject(i);
@@ -94,8 +105,11 @@ public class InternacionalFragment extends Fragment {
         recyclerView.setAdapter(adaptadorNoticia);
     }
 
-
-
+    /**
+     *  Metodo agregarActividad que agrega un objeto de tipo Noticia a la lista de noticias
+     * @param noticiaJSON
+     * @throws JSONException
+     */
     private void agregarNoticia(JSONObject noticiaJSON) throws JSONException {
         String titulo = noticiaJSON.getString("title");
         String fecha = noticiaJSON.getString("publishedAt");
